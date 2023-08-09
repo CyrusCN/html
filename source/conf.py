@@ -19,7 +19,7 @@
 
 project = 'Quantaunit'
 copyright = '2023, Cyrus,辽ICP备2021006634号-1'
-author = 'Cyrus'
+author = 'Cyrus Shi'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
