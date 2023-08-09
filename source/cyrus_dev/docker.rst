@@ -12,6 +12,8 @@ At the beginning, you should take something into consideration such as the io be
 NGINX web Sphinx With SSL
 .........................
 
+Other Local Services(Application) Packet by Yourself
+....................................................
 
 K8s
 ```
