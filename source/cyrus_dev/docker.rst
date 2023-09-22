@@ -1,5 +1,5 @@
-Docker and K8s Learn
-====================
+Tools Learn
+===========
 
 Docker
 ``````
@@ -11,9 +11,22 @@ At the beginning, you should take something into consideration such as the io be
 
 NGINX web Sphinx With SSL
 .........................
+NGINX is a tool listen your local services and make your services can be seen at some port and transmit your data as the http or secure https, so when you change the nginx config, there are some ssl(Secure Sockets Layer,Public and Private Key) conf no metter who supply, neither offcial or yourself.
+Here are some step.
+
+Jenkins
+.......
+
+ElasticSearch
+.............
+
+
 
 Other Local Services(Application) Packet by Yourself
 ....................................................
 
 K8s
 ```
+
+Kubernetes 
+----------

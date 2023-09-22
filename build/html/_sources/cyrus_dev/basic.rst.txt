@@ -1,0 +1,14 @@
+The Basic
+=========
+
+Math Basic 
+----------
+
+Code and Formule data (Mapping)
+```````````````````````````````
+
+Factor and Function Design
+``````````````````````````
+
+Linear Algebra for The data
+```````````````````````````

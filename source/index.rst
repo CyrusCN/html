@@ -7,7 +7,7 @@ Tables
 ======
 .. toctree::
    :numbered:
-   :maxdepth: 3
+   :maxdepth: 2
 
    cyrus_dev/docker.rst
    cyrus_dev/quanta.rst
