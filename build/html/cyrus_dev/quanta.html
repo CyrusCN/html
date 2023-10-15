@@ -19,6 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Catalog" href="appendix.html" />
     <link rel="prev" title="1. Tools Learn" href="docker.html" /> 
 </head>
 
@@ -45,7 +46,10 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">1. Tools Learn</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. Quanta Devlop</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#learn-tree">2.1. Learn tree</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-data-collector">2.1.1. The data Collector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-data-collector">2.1.1. The data Collector</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#python-data-collector">2.1.1.1. Python data Collector</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#math-basic">2.1.2. Math Basic</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#code-and-formule-data-mapping">2.1.2.1. Code and Formule data (Mapping)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#factor-and-function-design">2.1.2.2. Factor and Function Design</a></li>
@@ -56,6 +60,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">3. Catalog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">4. About Me</a></li>
 </ul>
 
         </div>
@@ -92,6 +98,66 @@
 <h2><span class="section-number">2.1. </span>Learn tree<a class="headerlink" href="#learn-tree" title="Link to this heading"></a></h2>
 <section id="the-data-collector">
 <h3><span class="section-number">2.1.1. </span>The data Collector<a class="headerlink" href="#the-data-collector" title="Link to this heading"></a></h3>
+<section id="python-data-collector">
+<h4><span class="section-number">2.1.1.1. </span>Python data Collector<a class="headerlink" href="#python-data-collector" title="Link to this heading"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">oracledb</span><span class="o">,</span><span class="nn">getpass</span><span class="o">,</span><span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span><span class="nn">numpy</span><span class="o">,</span><span class="nn">pandas</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pic</span>
+
+<span class="c1">##########引入数据##########</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please add your doc Location&quot;</span><span class="p">)</span>
+<span class="n">location</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">location</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1">##########引入数据##########</span>
+
+<span class="c1">##########图像绘制##########</span>
+<span class="c1">#pic.plot(data)</span>
+<span class="c1">##########图像绘制##########</span>
+
+<span class="c1">##########格式数据##########</span>
+
+<span class="c1">##########格式数据##########</span>
+
+<span class="c1">##########连数据库##########</span>
+<span class="n">userpwd</span><span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">()</span>
+<span class="n">connection</span> <span class="o">=</span> <span class="n">oracledb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+    <span class="n">password</span><span class="o">=</span><span class="n">userpwd</span><span class="p">,</span>
+    <span class="n">dsn</span><span class="o">=</span><span class="s2">&quot;(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=g5f10d71d826884_bigdatacenter_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))&quot;</span><span class="p">,</span>
+    <span class="n">config_dir</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
+    <span class="n">wallet_location</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
+    <span class="n">wallet_password</span><span class="o">=</span><span class="n">userpwd</span>
+    <span class="p">)</span>
+<span class="c1">##########连数据库##########</span>
+
+
+<span class="c1">##########筛选字符##########</span>
+<span class="c1">##########筛选字符##########</span>
+
+<span class="c1">##########分割字符##########</span>
+<span class="c1">##########分割字符##########</span>
+
+<span class="c1">##########连接指针##########</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="c1">##########连接指针##########</span>
+
+<span class="c1">##########执行指令##########</span>
+<span class="c1"># cursor.execute(</span>
+<span class="c1">#    input()</span>
+<span class="c1"># )</span>
+<span class="c1">##########执行指令##########</span>
+
+
+<span class="c1">#从云中读取数据</span>
+<span class="c1">#cursor.execute()</span>
+
+
+<span class="c1">#生成json格式</span>
+<span class="c1">#导出至运算文件夹</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="math-basic">
 <h3><span class="section-number">2.1.2. </span>Math Basic<a class="headerlink" href="#math-basic" title="Link to this heading"></a></h3>
@@ -113,18 +179,23 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="docker.html" class="btn btn-neutral float-left" title="1. Tools Learn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="appendix.html" class="btn btn-neutral float-right" title="3. Catalog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Cyrus,辽ICP备2021006634号-1.</p>
+    <p>&#169; Copyright 2023, Cyrus.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+    <div role="contentinfo" style="margin:auto;">
+        <a href="https://beian.miit.gov.cn">辽ICP备2021006634号-1</a>
+    </div>
+
 
 </footer>
         </div>

@@ -6,9 +6,10 @@ and also the study process.
 Tables
 ======
 .. toctree::
-   :numbered:
+   :numbered: 9
    :maxdepth: 2
-
-   cyrus_dev/docker.rst
-   cyrus_dev/quanta.rst
-
+   
+   cyrus_dev/docker
+   cyrus_dev/quanta
+   cyrus_dev/appendix
+   cyrus_dev/about
