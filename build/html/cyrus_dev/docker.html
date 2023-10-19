@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2. Quanta Devlop" href="quanta.html" />
+    <link rel="next" title="2. Quanta Devlop(bigdata-datamining)" href="quanta.html" />
     <link rel="prev" title="Welcome to Quantaunit" href="../index.html" /> 
 </head>
 
@@ -55,13 +55,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#k8s">1.2. K8s</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kubernetes">1.2.1. Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes-k8s">1.2. Kubernetes(k8s)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kubectl">1.2.1. kubectl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kubeadm">1.2.2. kubeadm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kubenode">1.2.3. kubenode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kube-cgroup">1.2.4. kube-cgroup</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quanta.html">2. Quanta Devlop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quanta.html">2. Quanta Devlop(bigdata-datamining)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">3. Catalog</a></li>
 <li class="toctree-l1"><a class="reference internal" href="about.html">4. About Me</a></li>
 </ul>
@@ -98,14 +101,130 @@
 <section id="docker-use-example">
 <h3><span class="section-number">1.1.1. </span>Docker use Example<a class="headerlink" href="#docker-use-example" title="Link to this heading"></a></h3>
 <p>At the beginning, you should take something into consideration such as the io between local and container.</p>
+<p>Some way to set up docker application.</p>
+<ol class="arabic simple">
+<li><p>docker composer(apt install/yum)</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3&#39;</span>
+<span class="c1">#volumes:</span>
+<span class="c1">#easy to remember:</span>
+<span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">app</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">image name</span>
+<span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always</span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080:8080</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1935:1935</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1985:1985</span>
+<span class="w">  </span><span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networkname</span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">cpus</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;0.5&quot;</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500M</span>
+<span class="w">      </span><span class="nt">reservations</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">200M</span>
+
+<span class="nt">networks</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">networkname</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">driver</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bridge</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Makefile</p></li>
+</ol>
+<p>Create a Makefile in (~/dockerauto) and easy to excute command →make run</p>
+<div class="highlight-Makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">ImgName</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>nginx
+<span class="nv">LocalLoc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>~/html/build/html
+<span class="nv">port</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">80</span>
+<span class="nv">ssl</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">443</span>
+<span class="nv">ContainerLoc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/usr/share/nginx/html
+<span class="nv">ngst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/etc/nginx
+<span class="nv">ngstlc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>~/dockerauto/conf
+<span class="nf">build</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span><span class="w"> </span>.
+<span class="nf">run</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>ngstlc<span class="k">)</span>:<span class="k">$(</span>ngst<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>port<span class="k">)</span>:<span class="k">$(</span>port<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>ssl<span class="k">)</span>:<span class="k">$(</span>ssl<span class="k">)</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>LocalLoc<span class="k">)</span>:<span class="k">$(</span>ContainerLoc<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
+<span class="nf">status</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
+<span class="nf">stop</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>stop<span class="w"> </span>container<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
+<span class="nf">shell</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span><span class="w"> </span>/bin/bash
+<span class="nf">rm</span><span class="o">:</span>
+<span class="w">      </span>docker<span class="w"> </span>rm<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Bash command(Just convert the $)</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>ngstlc<span class="k">)</span>:<span class="k">$(</span>ngst<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>port<span class="k">)</span>:<span class="k">$(</span>port<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>ssl<span class="k">)</span>:<span class="k">$(</span>ssl<span class="k">)</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>LocalLoc<span class="k">)</span>:<span class="k">$(</span>ContainerLoc<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
+</pre></div>
+</div>
 <section id="nginx-web-sphinx-with-ssl">
 <h4><span class="section-number">1.1.1.1. </span>NGINX web Sphinx With SSL<a class="headerlink" href="#nginx-web-sphinx-with-ssl" title="Link to this heading"></a></h4>
 <p>NGINX is a tool listen your local services and make your services can be seen at some port and transmit your data as the http or secure https, so when you change the nginx config, there are some ssl(Secure Sockets Layer,Public and Private Key) conf no metter who supply, neither offcial or yourself.
 Here are some step.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">Two way to set up docker application.</span>
-<span class="l l-Scalar l-Scalar-Plain">1.docker composer(apt install/yum)</span>
+<ol class="arabic simple">
+<li><p>From the Makefile to make run a docker container</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ubuntu@VM-0-17-ubuntu:~/dockerauto$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/dockerauto
+ubuntu@VM-0-17-ubuntu:~/dockerauto$<span class="w"> </span>make<span class="w"> </span>run
+docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span>~/dockerauto/conf:/etc/nginx<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>-p<span class="w"> </span><span class="m">443</span>:443<span class="w"> </span>-v<span class="w"> </span>~/html/build/html:/usr/share/nginx/html<span class="w"> </span>nginx
+6e6b2c4fbcc53c606e4aa19dd993e397991ff7975554df667d7cd0f895157313
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Change the nginx config file(in local path but Mapping in docker container)</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ubuntu@VM-0-17-ubuntu:~/dockerauto$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/dockerauto/conf/conf.d$
+ubuntu@VM-0-17-ubuntu:~/dockerauto/conf$<span class="w"> </span>nano<span class="w"> </span>default.conf
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Port 80 to 443 and Put crt path</p></li>
+</ol>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">server {</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">listen 80;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">server_name lovesyu.cn www.lovesyu.cn;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># 301 永久重定向到 HTTPS</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">return 301 https://$host$request_uri;</span>
+<span class="l l-Scalar l-Scalar-Plain">}</span>
+<span class="l l-Scalar l-Scalar-Plain">server {</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">listen       443 ssl;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">server_name  lovesyu.cn www.lovesyu.cn;</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">http2 on;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">ssl_certificate /etc/nginx/lovesyu.cn_bundle.crt;</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">ssl_certificate_key /etc/nginx/lovesyu.cn.key;</span>
 
-<span class="l l-Scalar l-Scalar-Plain">2.Makefile(bash command)</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><span class="w"> </span><span class="c1">#允许的协议</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">ssl_ciphers &#39;TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384&#39;;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Put your crt and key document in your local path</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ubuntu@VM-0-17-ubuntu:~/dockerauto/conf/conf.d$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+ubuntu@VM-0-17-ubuntu:~/dockerauto/conf$
+scp<span class="w"> </span>your<span class="w"> </span>crt<span class="w"> </span>and<span class="w"> </span>key<span class="w"> </span>from<span class="w"> </span>Powershell<span class="o">(</span>or<span class="w"> </span>other<span class="w"> </span>sysyem<span class="w"> </span>openssh<span class="o">)</span>
+<span class="nb">exit</span>
+PS<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\5</span>21cy&gt;<span class="w"> </span>scp<span class="w"> </span><span class="s2">&quot;C:\Users\521cy\Desktop\yourkey.key&quot;</span><span class="w"> </span>ubuntu@lovesyu.cn:/home/ubuntu/dockerauto/conf/yourkey.key
+PS<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\5</span>21cy&gt;<span class="w"> </span>scp<span class="w"> </span><span class="s2">&quot;C:\Users\521cy\Desktop\yourcrt.crt&quot;</span><span class="w"> </span>ubuntu@lovesyu.cn:/home/ubuntu/dockerauto/conf/yourcrt.crt
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Install Sphinx Application</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-pip
+<span class="nb">cd</span><span class="w"> </span>html
+pip3<span class="w"> </span>install<span class="w"> </span>Sphinx
+sphinx-quickstart
+<span class="c1"># it will create build and Makefile in your ~/html,</span>
+make<span class="w"> </span>html
+<span class="c1"># it will build your html in your ~/html/build/html (you can check your nginx config true or false)</span>
+other<span class="w"> </span>document<span class="w"> </span>goto<span class="w"> </span>sphinx<span class="w"> </span>website<span class="w"> </span>to<span class="w"> </span>learn.
 </pre></div>
 </div>
 </section>
@@ -123,10 +242,19 @@ Here are some step.</p>
 </section>
 </section>
 </section>
-<section id="k8s">
-<h2><span class="section-number">1.2. </span>K8s<a class="headerlink" href="#k8s" title="Link to this heading"></a></h2>
-<section id="kubernetes">
-<h3><span class="section-number">1.2.1. </span>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading"></a></h3>
+<section id="kubernetes-k8s">
+<h2><span class="section-number">1.2. </span>Kubernetes(k8s)<a class="headerlink" href="#kubernetes-k8s" title="Link to this heading"></a></h2>
+<section id="kubectl">
+<h3><span class="section-number">1.2.1. </span>kubectl<a class="headerlink" href="#kubectl" title="Link to this heading"></a></h3>
+</section>
+<section id="kubeadm">
+<h3><span class="section-number">1.2.2. </span>kubeadm<a class="headerlink" href="#kubeadm" title="Link to this heading"></a></h3>
+</section>
+<section id="kubenode">
+<h3><span class="section-number">1.2.3. </span>kubenode<a class="headerlink" href="#kubenode" title="Link to this heading"></a></h3>
+</section>
+<section id="kube-cgroup">
+<h3><span class="section-number">1.2.4. </span>kube-cgroup<a class="headerlink" href="#kube-cgroup" title="Link to this heading"></a></h3>
 </section>
 </section>
 </section>
@@ -136,7 +264,7 @@ Here are some step.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to Quantaunit" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="quanta.html" class="btn btn-neutral float-right" title="2. Quanta Devlop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="quanta.html" class="btn btn-neutral float-right" title="2. Quanta Devlop(bigdata-datamining)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

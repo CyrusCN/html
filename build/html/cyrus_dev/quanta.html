@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. Quanta Devlop &mdash; Quantaunit 1.0.0 documentation</title>
+  <title>2. Quanta Devlop(Bigdata-Datamining) &mdash; Quantaunit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -44,7 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="docker.html">1. Tools Learn</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Quanta Devlop</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Quanta Devlop(Bigdata-Datamining)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#learn-tree">2.1. Learn tree</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#the-data-collector">2.1.1. The data Collector</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#python-data-collector">2.1.1.1. Python data Collector</a></li>
@@ -78,7 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2. </span>Quanta Devlop</li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Quanta Devlop(Bigdata-Datamining)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/cyrus_dev/quanta.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -88,73 +88,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="quanta-devlop">
-<h1><span class="section-number">2. </span>Quanta Devlop<a class="headerlink" href="#quanta-devlop" title="Link to this heading"></a></h1>
+  <section id="quanta-devlop-bigdata-datamining">
+<h1><span class="section-number">2. </span>Quanta Devlop(Bigdata-Datamining)<a class="headerlink" href="#quanta-devlop-bigdata-datamining" title="Link to this heading"></a></h1>
 <p>在量化过程中，我个人认为，有必要掌握三种技能</p>
-<p>1.业务数据的运筹编码</p>
-<p>2.业务数据流的架构设计</p>
-<p>3.业务数据在数据挖掘中的常用分析手短</p>
+<ol class="arabic simple">
+<li><p>业务数据的运筹编码(数据清洗与特征工程)</p></li>
+<li><p>业务数据流的架构设计(系统设计与反馈设计)</p></li>
+<li><p>业务数据在数据挖掘中的常用分析手短</p></li>
+</ol>
 <section id="learn-tree">
 <h2><span class="section-number">2.1. </span>Learn tree<a class="headerlink" href="#learn-tree" title="Link to this heading"></a></h2>
 <section id="the-data-collector">
 <h3><span class="section-number">2.1.1. </span>The data Collector<a class="headerlink" href="#the-data-collector" title="Link to this heading"></a></h3>
 <section id="python-data-collector">
 <h4><span class="section-number">2.1.1.1. </span>Python data Collector<a class="headerlink" href="#python-data-collector" title="Link to this heading"></a></h4>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">oracledb</span><span class="o">,</span><span class="nn">getpass</span><span class="o">,</span><span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span><span class="o">,</span><span class="nn">numpy</span><span class="o">,</span><span class="nn">pandas</span>
+<p>No metter whatever data you want to input, They will end to insert your runing path(namespace),
+these data will Mapping in runing enviroment.</p>
+<ol class="arabic simple">
+<li><p>From the Local document(csv json)</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span><span class="o">,</span><span class="nn">numpy</span><span class="o">,</span><span class="nn">pandas</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pic</span>
-
-<span class="c1">##########引入数据##########</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please add your doc Location&quot;</span><span class="p">)</span>
-<span class="n">location</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">location</span><span class="p">)</span>
+<span class="n">path</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;please input your doc path&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="c1">##########引入数据##########</span>
-
-<span class="c1">##########图像绘制##########</span>
-<span class="c1">#pic.plot(data)</span>
-<span class="c1">##########图像绘制##########</span>
-
-<span class="c1">##########格式数据##########</span>
-
-<span class="c1">##########格式数据##########</span>
-
-<span class="c1">##########连数据库##########</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>From the Stream(Network Stream(object stroge) or read the database.)</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">oracledb</span><span class="o">,</span><span class="nn">getpass</span><span class="o">,</span><span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pic</span>
 <span class="n">userpwd</span><span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">()</span>
 <span class="n">connection</span> <span class="o">=</span> <span class="n">oracledb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
-    <span class="n">password</span><span class="o">=</span><span class="n">userpwd</span><span class="p">,</span>
-    <span class="n">dsn</span><span class="o">=</span><span class="s2">&quot;(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=g5f10d71d826884_bigdatacenter_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))&quot;</span><span class="p">,</span>
-    <span class="n">config_dir</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
-    <span class="n">wallet_location</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
-    <span class="n">wallet_password</span><span class="o">=</span><span class="n">userpwd</span>
-    <span class="p">)</span>
-<span class="c1">##########连数据库##########</span>
-
-
-<span class="c1">##########筛选字符##########</span>
-<span class="c1">##########筛选字符##########</span>
-
-<span class="c1">##########分割字符##########</span>
-<span class="c1">##########分割字符##########</span>
-
-<span class="c1">##########连接指针##########</span>
+  <span class="n">user</span><span class="o">=</span><span class="s2">&quot;admin&quot;</span><span class="p">,</span>
+  <span class="n">password</span><span class="o">=</span><span class="n">userpwd</span><span class="p">,</span>
+  <span class="n">dsn</span><span class="o">=</span><span class="s2">&quot;(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=g5f10d71d826884_bigdatacenter_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))&quot;</span><span class="p">,</span>
+  <span class="n">config_dir</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
+  <span class="n">wallet_location</span><span class="o">=</span><span class="s2">&quot;auth/bdc&quot;</span><span class="p">,</span>
+  <span class="n">wallet_password</span><span class="o">=</span><span class="n">userpwd</span>
+  <span class="p">)</span>
 <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="c1">##########连接指针##########</span>
-
-<span class="c1">##########执行指令##########</span>
-<span class="c1"># cursor.execute(</span>
-<span class="c1">#    input()</span>
-<span class="c1"># )</span>
-<span class="c1">##########执行指令##########</span>
-
-
-<span class="c1">#从云中读取数据</span>
-<span class="c1">#cursor.execute()</span>
-
-
-<span class="c1">#生成json格式</span>
-<span class="c1">#导出至运算文件夹</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>From Continuous input Data(Singal from the Audio and video data)</p></li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;opencv2/opencv.hpp&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">opencv</span><span class="o">-</span><span class="n">python</span><span class="p">,</span><span class="n">numpy</span><span class="p">,</span><span class="n">pandas</span>
 </pre></div>
 </div>
 </section>
