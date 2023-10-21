@@ -1,12 +1,12 @@
-Quanta Devlop(Bigdata-Datamining)
-=================================
+Quanta Devlop and Systems Engineering
+=====================================
 在量化过程中，我个人认为，有必要掌握三种技能
 
-1. 业务数据的运筹编码(数据清洗与特征工程)
+1. 业务数据的运筹编码(数据挖掘与统计学)
 
-2. 业务数据流的架构设计(系统设计与反馈设计)
+2. 业务数据流的架构设计(系统设计与反馈控制)
 
-3. 业务数据在数据挖掘中的常用分析手短
+3. 业务数据在传递过程中的再优化(离散数学)
 
 Learn tree
 ----------
@@ -14,8 +14,8 @@ Learn tree
 The data Collector
 ``````````````````
 
-Python data Collector
-.....................
+Data Collector
+......................
 No metter whatever data you want to input, They will end to insert your runing path(namespace), 
 these data will Mapping in runing enviroment.
 
@@ -34,6 +34,7 @@ these data will Mapping in runing enviroment.
 .. code-block:: python
 
   import oracledb,getpass,os
+  import pandas,numpy
   import matplotlib.pyplot as pic
   userpwd= getpass.getpass()
   connection = oracledb.connect(
@@ -55,20 +56,35 @@ these data will Mapping in runing enviroment.
 
 .. code-block:: python 
   
-  import opencv-python,numpy,pandas
+  import cv2,numpy,pandas
+  import matplotlib.pyplot as pic
 
 Math Basic 
 ``````````
+Advanced Mathematics(Not important for Discontinuous data)
+..........................................................
 
+Linear Algebra for The data 
+...........................
 
-Code and Formule data (Mapping)
-...............................
+Data Analyes(Statistics)
+........................
+
+1. 数据集基本数据预处理(错误值，缺失值)
+2. 卡方检验(两个样本群的相似)
+3. 连续时间数据频率化（傅里叶变换）
+4. 事件发生概率化(马尔科夫链与K布转移矩阵)
+
+Formule and Code data Characteristic (Mapping)
+..............................................
+
+1. 线性规划
 
 Factor and Function Design
 ..........................
 
-Linear Algebra for The data 
-...........................
+Framework design()
+``````````````````
 
 
 

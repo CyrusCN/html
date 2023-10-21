@@ -138,6 +138,8 @@ Here are some step.
   make html 
   # it will build your html in your ~/html/build/html (you can check your nginx config true or false)
   other document goto sphinx website to learn.
+  
+https://www.sphinx-doc.org/
 
 Jenkins
 .......
