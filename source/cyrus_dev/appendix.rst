@@ -624,3 +624,7 @@ Example（apt reinstall for dpkg repair missing）:
      apt-get install --reinstall "$package";
 
   done
+
+rst(restructuredtext)
+---------------------
+https://docutils.sourceforge.io/docs/ref/rst/

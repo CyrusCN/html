@@ -73,13 +73,14 @@ Create a Makefile in (~/dockerauto) and easy to excute command →make run
 
   docker run -it -d -v $(ngstlc):$(ngst) -p $(port):$(port) -p $(ssl):$(ssl) -v $(LocalLoc):$(ContainerLoc) $(ImgName) 
 
+.. _my-reference-label:
 
 NGINX web Sphinx With SSL
 .........................
 NGINX is a tool listen your local services and make your services can be seen at some port and transmit your data as the http or secure https, so when you change the nginx config, there are some ssl(Secure Sockets Layer,Public and Private Key) conf no metter who supply, neither offcial or yourself.
 Here are some step.
 
-1. From the Makefile to make run a docker container
+1. From the Makefile to make run a nginx docker container
 
 .. code-block:: bash
 
@@ -144,26 +145,134 @@ https://www.sphinx-doc.org/
 Jenkins
 .......
 
-ElasticSearch Node
-..................
+1. From the docker-composer to run a Jenkins container
+
+.. code-block:: yaml
+
+  version: '3'
+
+  services: 
+   jenkins:
+      container_name: aio-add
+      image: jenkins/jenkins:lts-jdk11
+      restart: always
+      ports:
+      - 8008:8080
+      volumes:
+      - /root/066/sql/Cyrus/files/devjenkins/jenkins:/var/jenkins_home
+      deploy:
+      resources:
+         limits:
+            cpus: "0.15"
+            memory: 8G
+         reservations:
+            memory: 200M
 
 Nextcloud
 .........
+1. From bash docker command to run
+
+.. code-block:: bash
+
+  docker run -it -d -v /root/066/nextcloudapp:/var/www/html -v /root/066/sql:/var/www/html/data -p 80:80 -p 443:443  nextcloud
+
+2. SSL 
+
+Add your Path to -v and Change Nginx config :ref:`my-reference-label`
 
 Other Local Services(Application) Packet by Yourself
 ....................................................
 
+1. Pull a minimal image（For your favorite system）(docker pull image)
+2. Create container for image
+3. Into container
+
+.. code-block:: bash
+
+  docker run -it $(ImgName) /bin/bash
+
+4. Add your application 
+5. Exit container
+6. Packet
+
+.. code-block:: bash
+
+  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Docker swarm
+````````````
+
+建议使用k8s更为轻量，node以容器形式存在过于损耗性能，臃肿。
+
+如只想使用docker集群,建议搭配Portainer使用,节点主管理和节点请看
+
+.. code-block:: bash
+
+  docker swarm
+
 Kubernetes(k8s)
 ---------------
 
-kubectl
-```````
+强烈建议根据官网版本学习，添加K8S源，安装K8S套件。本文根据2023/10/25官网版本1.28所述所撰
 
-kubeadm
-```````
+https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
-kubenode
-````````
+以下指令适用于 Kubernetes 1.28.
 
-kube-cgroup
-```````````
+更新 apt 包索引并安装使用 Kubernetes apt 仓库所需要的包：
+
+.. code-block:: bash
+
+  sudo apt-get update
+  sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+添加 Kubernetes apt 仓库。 请注意，此仓库仅包含适用于 Kubernetes 1.28 的软件包； 对于其他 Kubernetes 次要版本，则需要更改 URL 中的 Kubernetes 次要版本以匹配你所需的次要版本 （你还应该检查正在阅读的安装文档是否为你计划安装的 Kubernetes 版本的文档）。
+
+.. code-block:: bash
+
+  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+更新 apt 包索引，安装 kubelet、kubeadm 和 kubectl，并锁定其版本：
+
+.. code-block:: bash
+
+  sudo apt-get update
+  sudo apt-get install -y kubelet kubeadm kubectl
+  sudo apt-mark hold kubelet kubeadm kubectl
+
+在 Debian 12 和 Ubuntu 22.04 之前的早期版本中，默认情况下不存在 /etc/apt/keyrings 目录； 你可以通过运行
+ 
+.. code-block:: bash
+
+  sudo mkdir -m 755 /etc/apt/keyrings
+
+kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
+
+kubectl(控制台工具)
+```````````````````
+该工具是分发控制命令的工具，安装即可。
+
+kubeadm(集群管理员)
+```````````````````
+该工具是控制中心，分发给信使kubelet,操作kubectl部署集群。
+
+kubelet(集群命令信使)
+``````````````````````
+该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。
+
+kube-cgroup(容器调度物理机)
+```````````````````````````
+硬件利用有关，具体看官网
+
+kubeapplication(Pod,Container,CRI)
+```````````````````````````````````
+containerd,
+该功能也可以由Docker代替,官方称作容器运行时，
+也就是pod运行所需环境（docker或则containerd产生的container）
+
+ElasticSearch Node
+..................
+
+Openstack
+`````````
