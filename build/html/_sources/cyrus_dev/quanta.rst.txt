@@ -65,10 +65,11 @@ these data will Mapping in runing enviroment.
 
 .. code-block:: python
 
-  import oracledb,getpass,os
-  import json,numpy,pandas
-  import matplotlib.pyplot as pic
-
+  import oracledb,getpass,os,json
+  import numpy as np
+  import pandas as pd
+  import matplotlib.pyplot as plt
+  
   location = input("Please add your doc Location:")
   if location =="":
           #从云中读取数据
@@ -83,7 +84,7 @@ these data will Mapping in runing enviroment.
               wallet_location="auth/bdc",
               wallet_password=userpwd
               )
-
+      
       else:
           connection = oracledb.connect(
               user="Admin",
@@ -93,20 +94,28 @@ these data will Mapping in runing enviroment.
               wallet_location="auth/sc",
               wallet_password=userpwd
               )
-
+  
       cursor = connection.cursor()
       for data in cursor.execute(input("Please input your sqlcommand:")):
           print(data)
-          cursor.close()
+          print(type(data))
+          
   else:
-      data=pandas.read_csv("%s" % location):
-          print(data)
-
-      #图像绘制
-  pic.plot(data)
+      data=pd.read_csv("%s" % location)
+  
+      print(data)
+      print(type(data))
+  cursor.close()
+  
+  #图像绘制
+  #y1 = np.array()
+  #y2 = np.array()
+  #y3 = np.array()
+  #y4 = np.array()
+      #x1=np
       #特征编码
       #导出至运算器
-    
+      
 Data Framework design
 `````````````````````
 
@@ -144,9 +153,9 @@ Linear Algebra for The data
 ...........................
 1. 线性规划与单纯型法
 
-.. raw:: latex
+.. math::
   
-   \vec a
+  a \times b 
 
 Data Analyes(Statistics)
 ........................
