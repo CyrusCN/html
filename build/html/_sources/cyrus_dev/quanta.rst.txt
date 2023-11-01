@@ -122,8 +122,16 @@ Data Framework design
 语言与控制装置
 ..............
 
+C
+C++
+Python
+Other Contorler
+
 批量收集装置
 ............
+
+Spark
+ElasticSearch
 
 传递装置
 ........
@@ -183,8 +191,22 @@ Factor and Function Design
 2. AHP方法
 3. 网络流理论
 
+
+
 Machine Learing and Persistence iteration 
 `````````````````````````````````````````
+
+QuantaCompute
+--------------
+
+量子数学映射与运算逻辑
+``````````````````````
+
+量子运算逻辑门设计
+```````````````````
+
+量子机器学习与持续迭代
+```````````````````````
 
 Quanta in Finance
 -----------------

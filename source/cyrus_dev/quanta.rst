@@ -80,8 +80,8 @@ these data will Mapping in runing enviroment.
               user="Admin",
               password=userpwd,
               dsn="(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=g5f10d71d826884_bigdatacenter_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))",
-              config_dir="auth/bdc", 
-              wallet_location="auth/bdc",
+              config_dir="~/auth/bdc", 
+              wallet_location="~/auth/bdc",
               wallet_password=userpwd
               )
       
@@ -90,8 +90,8 @@ these data will Mapping in runing enviroment.
               user="Admin",
               password=userpwd,
               dsn="(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.ap-tokyo-1.oraclecloud.com))(connect_data=(service_name=g5f10d71d826884_statuscenter_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))",
-              config_dir="auth/sc",
-              wallet_location="auth/sc",
+              config_dir="~/auth/sc",
+              wallet_location="~/auth/sc",
               wallet_password=userpwd
               )
   
@@ -122,8 +122,16 @@ Data Framework design
 语言与控制装置
 ..............
 
+C
+C++
+Python
+Other Contorler
+
 批量收集装置
 ............
+
+Spark
+ElasticSearch
 
 传递装置
 ........
@@ -183,8 +191,22 @@ Factor and Function Design
 2. AHP方法
 3. 网络流理论
 
+
+
 Machine Learing and Persistence iteration 
 `````````````````````````````````````````
+
+QuantaCompute
+--------------
+
+量子数学映射与运算逻辑
+``````````````````````
+
+量子运算逻辑门设计
+```````````````````
+
+量子机器学习与持续迭代
+```````````````````````
 
 Quanta in Finance
 -----------------

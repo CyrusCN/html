@@ -212,6 +212,8 @@ Docker swarm
 
 Kubernetes(k8s)
 ---------------
+.. toctree::
+   :maxdepth: 6
 
 强烈建议根据官网版本学习，添加K8S源，安装K8S套件。本文根据2023/10/25官网版本1.28所述所撰
 
@@ -249,27 +251,39 @@ https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/inst
 
 kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
 
-kubectl(控制台工具)
-```````````````````
-该工具是分发控制命令的工具，安装即可。
+以下k8s应用过程基于自己总结，具体架构图请根据官网架构自行安排。
 
 kubeadm(集群管理员)
 ```````````````````
 该工具是控制中心，分发给信使kubelet,操作kubectl部署集群。
+需要对接下级kubelet配置文件，中心服务器（控制中心）安装。
 
 kubelet(集群命令信使)
-``````````````````````
-该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。
+.....................
+需给上级kubeadm提供Node状态信息，节点服务器安装。
+
+kubectl(控制台工具)
+@@@@@@@@@@@@@@@@@@@
+该工具是分发控制命令的工具，接受来自kubelet的传递命令，分发给下级Cgroup进行调度，所有机器都装。
 
 kube-cgroup(容器调度物理机)
-```````````````````````````
-硬件利用有关，具体看官网
+&&&&&&&&&&&&&&&&&&&&&&&&&&&
+该进程接近物理机硬件调度，具体应用级别调度为Pod，Container
+Containerd(Container进程服务端)
+Dockerd（Docker进程服务端）
+硬件利
+
+用有关，具体看官网
 
 kubeapplication(Pod,Container,CRI)
-```````````````````````````````````
-containerd,
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 该功能也可以由Docker代替,官方称作容器运行时，
-也就是pod运行所需环境（docker或则containerd产生的container）
+也就是pod运行所需环境（dockerd或则containerd产生的container）
+该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。
+
+Kube-Dashboard
+...............
 
 ElasticSearch Node
 ..................
