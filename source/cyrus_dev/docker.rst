@@ -215,6 +215,10 @@ Kubernetes(k8s)
 .. toctree::
    :maxdepth: 6
 
+https://phyng.com/2023/04/09/pve-kubernetes.html
+该博主提供了早期版本且网络环境为直通外网，PVE7.4-3 k8s1.26.3
+本文基于PVE8.0.9 ，k8s1.28.4,无外网环境拉取镜像
+
 强烈建议根据官网版本学习，添加K8S源，安装K8S套件。本文根据2023/10/25官网版本1.28所述所撰
 
 https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
@@ -260,27 +264,64 @@ kubeadm(集群管理员)
 
 kubelet(集群命令信使)
 .....................
-需给上级kubeadm提供Node状态信息，节点服务器安装。
+需给上级kubeadm提供Node状态信息，节点服务器安装。 由cgroupfs控制（cgroup调度）
+该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。
 
 kubectl(控制台工具)
 @@@@@@@@@@@@@@@@@@@
-该工具是分发控制命令的工具，接受来自kubelet的传递命令，分发给下级Cgroup进行调度，所有机器都装。
+该工具是分发控制命令的工具，接受来自kubelet的传递命令，分发给下级Cgroupfs/systemd/Cgroup进行调度，所有机器都装。
 
-kube-cgroup(容器调度物理机)
-&&&&&&&&&&&&&&&&&&&&&&&&&&&
-该进程接近物理机硬件调度，具体应用级别调度为Pod，Container
-Containerd(Container进程服务端)
-Dockerd（Docker进程服务端）
-硬件利
+kube-cgroup(与物理机资源有关)
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
-用有关，具体看官网
+以下为个人理解，非专业出身，具体请看Linux的内核和调度。
 
-kubeapplication(Pod,Container,CRI)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+根据Linux的调度方式，取不同的调度方式
 
-该功能也可以由Docker代替,官方称作容器运行时，
-也就是pod运行所需环境（dockerd或则containerd产生的container）
-该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。
+1. 早期的Linux纯init调度，单一进程
+init进程是串行启动，只有前一个进程启动完，才会启动下一个进程。
+启动脚本复杂。init进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使得脚本变得很长。
+
+在命令行中由
+
+.. code-block:: bash
+
+  service ... start
+  /etc/init.d/... start 
+  
+ 
+2. systemd 主进程，其余为子进程(此时产生了cgroup这个东西，控制子进程init)
+
+.. code-block:: bash
+
+  systemctl status 
+  systemctl start
+
+因为kubelet 自带cgroupfs,控制cgroup
+但systemd也控制着cgroup,容易产生冲突，
+官方的意思大概是，把kubelet的调度默认成cgroup,不由fs控制。避免多个cgroup抢占资源
+
+
+3. cgroupfs2(这个是如今Linux的调度模式，具体没做了解)
+
+调度有关，具体看官网
+
+kubeapplication(Pod→Containerd/Dockerd→Images)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Pod是应用单元，需要Runtime官方称作容器运行时，的以下几种方式作为进程
+
+1. Containerd进程命令行中由crictl控制（最初的容器）
+2. CRI-O（与Contained不同的调度方式，cgroup不同）升级版containerd
+3. Dockershim(k8s 在1.24之前自带minidockerd,1.24后被移除)
+4. CRI-Dockerd(docker与k8s相互作用的服务端)(分离后版本，于1.24后自主安装)
+
+images:可以由docker pull 拉，也可以用cri pull拉，镜像大体通用，需要重新命名和读取。
+
+registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.28.4 → registry.k8s.io/kube-scheduler:v1.28.4
+
+
+
 
 Kube-Dashboard
 ...............

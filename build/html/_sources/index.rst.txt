@@ -11,5 +11,7 @@ Tables
    
    cyrus_dev/docker
    cyrus_dev/quanta
+   cyrus_dev/theoretic
    cyrus_dev/appendix
    cyrus_dev/about
+
