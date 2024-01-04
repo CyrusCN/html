@@ -55,17 +55,18 @@ Create a Makefile in (~/dockerauto) and easy to excute command →make run
   ngst := /etc/nginx
   ngstlc := ~/dockerauto/conf
   build:
-  	docker build -t $(ImgName) .
+  	docker build -t $(ImgName) 
   run:
-  	docker run -it -d -v $(ngstlc):$(ngst) -p $(port):$(port) -p $(ssl):$(ssl) -v $(LocalLoc):$(ContainerLoc) $(ImgName)
+  	docker run -it -d -p $(port):$(port) -p $(ssl):$(ssl) -v $(ngstlc):$(ngst) -v $(LocalLoc):$(ContainerLoc) $(ImgName)
   status:
   	docker ps -a
   stop:
   	docker stop container $(ImgName)
   shell:
-  	docker run -it $(ImgName) /bin/bash
+  	docker -it $(ImgName) /bin/bash
   rm:
   	docker rm $(ImgName)
+
 
 3. Bash command(Just convert the $)
 
@@ -269,7 +270,7 @@ kubelet(集群命令信使)
 
 kubectl(控制台工具)
 @@@@@@@@@@@@@@@@@@@
-该工具是分发控制命令的工具，接受来自kubelet的传递命令，分发给下级Cgroupfs/systemd/Cgroup进行调度，所有机器都装。
+该工具是分发控制命令的工具(kubeadm与nodelet通用命令行工具)，接受来自kubelet的传递命令，分发给下级Cgroupfs/systemd/Cgroup进行调度，所有机器都装。
 
 kube-cgroup(与物理机资源有关)
 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&
@@ -309,12 +310,15 @@ init进程是串行启动，只有前一个进程启动完，才会启动下一�
 kubeapplication(Pod→Containerd/Dockerd→Images)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Pod是应用单元，需要Runtime官方称作容器运行时，的以下几种方式作为进程
+Pod是应用单元，需要Runtime，官方称作容器运行时，使用以下几种方式作为进程
 
 1. Containerd进程命令行中由crictl控制（最初的容器）
 2. CRI-O（与Contained不同的调度方式，cgroup不同）升级版containerd
 3. Dockershim(k8s 在1.24之前自带minidockerd,1.24后被移除)
 4. CRI-Dockerd(docker与k8s相互作用的服务端)(分离后版本，于1.24后自主安装)
+
+这里有一篇文章结合图片介绍了工作机制，后悔没有早些看到，等自己看官方文档看明白了一看这篇文章恍然大悟
+.. ref:: https://zhuanlan.zhihu.com/p/585826176
 
 images:可以由docker pull 拉，也可以用cri pull拉，镜像大体通用，需要重新命名和读取。
 

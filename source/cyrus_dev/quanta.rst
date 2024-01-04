@@ -70,8 +70,8 @@ these data will Mapping in runing enviroment.
   import oracledb,json,cv2,ffmpeg
   import getpass,os
   import pandas as pd
-
-  #data.py
+  
+  video = cv2.VideoCapture(0)
   video = input('Please add your videopath:')
   if video =="":
       location = input("Please add your doc Location:")
@@ -101,12 +101,15 @@ these data will Mapping in runing enviroment.
           for data in cursor.execute(input("Please input your sqlcommand:")):
               print(data,type(data))
           cursor.close()
-
+  
       else:
           data=pd.read_csv("%s" % location)
           print(data,type(data))
   else:
+      #channal1 =
+      #channal2 =
       data = ffmpeg.input('')
+
 
 绘图与向量操作
 ..............
@@ -156,6 +159,22 @@ these data will Mapping in runing enviroment.
   fig1 = pltf.add_subplot(projection='3d').scatter(xs=x1,ys=x2,zs=x3,s=30,c="y",marker=".")
   fig1.figure.savefig('fig1.png',)
 
+3. 高级前端DOM数据绘制（vue+echarts/three.js+Redis+DOMdata+dataV）
+
+.. code-block:: bash 
+
+  wget https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-x64.tar.xz  #Please take care about the version from official website.
+  tar -xfc tar.xz
+  export PATH=/usr/local/lib/nodejs/bin:$PATH
+  #test if it possible to use
+  node -v
+  npm create vue@latest
+  #typescript=yes
+  cd <your-project-name>
+  npm datav,echarts... #(Please find those module in website and pull)
+  npm install #()
+  npm run dev #(5173 port dev application)
+  npm run build #(html will set in your ./dist)
 
 批量收集装置
 ............

@@ -149,15 +149,15 @@
 <span class="nv">ngst</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>/etc/nginx
 <span class="nv">ngstlc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>~/dockerauto/conf
 <span class="nf">build</span><span class="o">:</span>
-<span class="w">      </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span><span class="w"> </span>.
+<span class="w">      </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
 <span class="nf">run</span><span class="o">:</span>
-<span class="w">      </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>ngstlc<span class="k">)</span>:<span class="k">$(</span>ngst<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>port<span class="k">)</span>:<span class="k">$(</span>port<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>ssl<span class="k">)</span>:<span class="k">$(</span>ssl<span class="k">)</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>LocalLoc<span class="k">)</span>:<span class="k">$(</span>ContainerLoc<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
+<span class="w">      </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>port<span class="k">)</span>:<span class="k">$(</span>port<span class="k">)</span><span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>ssl<span class="k">)</span>:<span class="k">$(</span>ssl<span class="k">)</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>ngstlc<span class="k">)</span>:<span class="k">$(</span>ngst<span class="k">)</span><span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>LocalLoc<span class="k">)</span>:<span class="k">$(</span>ContainerLoc<span class="k">)</span><span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
 <span class="nf">status</span><span class="o">:</span>
 <span class="w">      </span>docker<span class="w"> </span>ps<span class="w"> </span>-a
 <span class="nf">stop</span><span class="o">:</span>
 <span class="w">      </span>docker<span class="w"> </span>stop<span class="w"> </span>container<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
 <span class="nf">shell</span><span class="o">:</span>
-<span class="w">      </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span><span class="w"> </span>/bin/bash
+<span class="w">      </span>docker<span class="w"> </span>-it<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span><span class="w"> </span>/bin/bash
 <span class="nf">rm</span><span class="o">:</span>
 <span class="w">      </span>docker<span class="w"> </span>rm<span class="w"> </span><span class="k">$(</span>ImgName<span class="k">)</span>
 </pre></div>
@@ -344,7 +344,7 @@ sudo<span class="w"> </span>apt-mark<span class="w"> </span>hold<span class="w">
 该工具类似于集群节点proxy,使adm命令能通过let代理控制ctl。</p>
 <section id="kubectl">
 <h5><span class="section-number">1.2.1.1.1. </span>kubectl(控制台工具)<a class="headerlink" href="#kubectl" title="Link to this heading"></a></h5>
-<p>该工具是分发控制命令的工具，接受来自kubelet的传递命令，分发给下级Cgroupfs/systemd/Cgroup进行调度，所有机器都装。</p>
+<p>该工具是分发控制命令的工具(kubeadm与nodelet通用命令行工具)，接受来自kubelet的传递命令，分发给下级Cgroupfs/systemd/Cgroup进行调度，所有机器都装。</p>
 <section id="kube-cgroup">
 <h6><span class="section-number">1.2.1.1.1.1. </span>kube-cgroup(与物理机资源有关)<a class="headerlink" href="#kube-cgroup" title="Link to this heading"></a></h6>
 <p>以下为个人理解，非专业出身，具体请看Linux的内核和调度。</p>
@@ -373,13 +373,15 @@ systemctl<span class="w"> </span>start
 <p>调度有关，具体看官网</p>
 <section id="kubeapplication-podcontainerd-dockerdimages">
 <h6 aria-level="7"><span class="section-number">1.2.1.1.1.1.1. </span>kubeapplication(Pod→Containerd/Dockerd→Images)<a class="headerlink" href="#kubeapplication-podcontainerd-dockerdimages" title="Link to this heading"></a></h6>
-<p>Pod是应用单元，需要Runtime官方称作容器运行时，的以下几种方式作为进程</p>
+<p>Pod是应用单元，需要Runtime，官方称作容器运行时，使用以下几种方式作为进程</p>
 <ol class="arabic simple">
 <li><p>Containerd进程命令行中由crictl控制（最初的容器）</p></li>
 <li><p>CRI-O（与Contained不同的调度方式，cgroup不同）升级版containerd</p></li>
 <li><p>Dockershim(k8s 在1.24之前自带minidockerd,1.24后被移除)</p></li>
 <li><p>CRI-Dockerd(docker与k8s相互作用的服务端)(分离后版本，于1.24后自主安装)</p></li>
 </ol>
+<p>这里有一篇文章结合图片介绍了工作机制，后悔没有早些看到，等自己看官方文档看明白了一看这篇文章恍然大悟
+.. ref:: <a class="reference external" href="https://zhuanlan.zhihu.com/p/585826176">https://zhuanlan.zhihu.com/p/585826176</a></p>
 <p>images:可以由docker pull 拉，也可以用cri pull拉，镜像大体通用，需要重新命名和读取。</p>
 <p>registry.cn-hangzhou.aliyuncs.com/google_containers/kube-scheduler:v1.28.4 → registry.k8s.io/kube-scheduler:v1.28.4</p>
 </section>

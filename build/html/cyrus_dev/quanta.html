@@ -180,7 +180,7 @@ these data will Mapping in runing enviroment.</p>
 <span class="kn">import</span> <span class="nn">getpass</span><span class="o">,</span><span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="c1">#data.py</span>
+<span class="n">video</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">video</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Please add your videopath:&#39;</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">video</span> <span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">:</span>
     <span class="n">location</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please add your doc Location:&quot;</span><span class="p">)</span>
@@ -215,6 +215,8 @@ these data will Mapping in runing enviroment.</p>
         <span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">location</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 <span class="k">else</span><span class="p">:</span>
+    <span class="c1">#channal1 =</span>
+    <span class="c1">#channal2 =</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">ffmpeg</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -263,6 +265,23 @@ these data will Mapping in runing enviroment.</p>
 <span class="p">)</span>
 <span class="n">fig1</span> <span class="o">=</span> <span class="n">pltf</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xs</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span><span class="n">ys</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span><span class="n">zs</span><span class="o">=</span><span class="n">x3</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 <span class="n">fig1</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;fig1.png&#39;</span><span class="p">,)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>高级前端DOM数据绘制（vue+echarts/three.js+Redis+DOMdata+dataV）</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget<span class="w"> </span>https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-x64.tar.xz<span class="w">  </span><span class="c1">#Please take care about the version from official website.</span>
+tar<span class="w"> </span>-xfc<span class="w"> </span>tar.xz
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/lib/nodejs/bin:<span class="nv">$PATH</span>
+<span class="c1">#test if it possible to use</span>
+node<span class="w"> </span>-v
+npm<span class="w"> </span>create<span class="w"> </span>vue@latest
+<span class="c1">#typescript=yes</span>
+<span class="nb">cd</span><span class="w"> </span>&lt;your-project-name&gt;
+npm<span class="w"> </span>datav,echarts...<span class="w"> </span><span class="c1">#(Please find those module in website and pull)</span>
+npm<span class="w"> </span>install<span class="w"> </span><span class="c1">#()</span>
+npm<span class="w"> </span>run<span class="w"> </span>dev<span class="w"> </span><span class="c1">#(5173 port dev application)</span>
+npm<span class="w"> </span>run<span class="w"> </span>build<span class="w"> </span><span class="c1">#(html will set in your ./dist)</span>
 </pre></div>
 </div>
 </section>
